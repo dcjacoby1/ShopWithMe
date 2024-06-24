@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+
+import Navbar from "./Navbar";
+import { Outlet } from "react-router-dom"
 
 function App() {
-  return <h1>Project Client</h1>;
+  const [ loggedInUser, setLoggedInUser ] = useState(null)
+  return( 
+  <div className="app">
+  <Navbar loggedInUser={loggedInUser}/>
+  <Outlet/>
+  </div>
+)
 }
 
 export default App;
