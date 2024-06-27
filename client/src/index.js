@@ -8,6 +8,7 @@ import Home from "./components/Home"
 import Orders from "./components/Orders"
 import Account from "./components/Account"
 import Cart from "./components/Cart"
+import Auth from "./components/Auth"
 
 const routes = [
     {
@@ -29,6 +30,10 @@ const routes = [
             {
                 path: "/cart",
                 element: <Cart />
+            },
+            {
+                path: "/auth",
+                element: <Auth />
             }
         ]
     }

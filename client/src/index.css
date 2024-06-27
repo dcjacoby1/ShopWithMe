@@ -5,3 +5,57 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
+/*---- Navbar -----*/
+#nav-bar-container{
+  margin: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #B7DEFF;
+}
+
+#nav-bar {
+  margin: 0 auto;
+  width: 65%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+/*---- Login ----*/ 
+.login-signup-container {
+  border: 1px solid black;
+  background-color: #fff;
+  width: 50%;
+  text-align: center;
+  margin: 40px auto 40px auto;
+  border-radius: 10px;
+}
+
+.form {
+  text-align: left;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.form > label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 900;
+}
+
+.form > input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+.form > button, #saveChangesButton{
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
