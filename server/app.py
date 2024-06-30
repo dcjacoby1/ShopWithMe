@@ -9,7 +9,7 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import User
+from models import User, Product
 
 # Views go here!
 
@@ -23,6 +23,14 @@ class Users(Resource):
         users = User.query.all()
         users_list = [user.to_dict() for user in users]
         return make_response(users_list, 200)
+api.add_resource(Users, '/users')
+
+class Products(Resource):
+    def get(self):
+        products = Product.query.all()
+        product_list = [product.to_dict() for product in products]
+        return make_response(product_list, 200)
+api.add_resource(Products, '/products')
 
 #checks to see if user is logged in
 class CheckSession(Resource):
