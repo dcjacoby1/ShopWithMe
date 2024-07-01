@@ -56,6 +56,8 @@ class CartItem(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
     shopping_cart_id = db.Column(db.Integer, db.ForeignKey('shopping_carts.id'), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False, default=1)
+
 
     shopping_cart = db.relationship('ShoppingCart', back_populates='cart_items')
     product = db.relationship('Product', back_populates='cart_items')
@@ -79,7 +81,7 @@ class Order(db.Model, SerializerMixin):
 
 class Product(db.Model, SerializerMixin):
     __tablename__ = 'products'
-    serialize_rules = ('-order_items.product', '-cart_items.product')
+    serialize_rules = ('-order_items', '-cart_items')
 
     categories = ['board', 'active','accessories', 'outdoors', 'video_digital', 'video_physical']
 

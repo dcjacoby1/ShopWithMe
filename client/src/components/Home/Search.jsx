@@ -2,7 +2,7 @@
 function Search({search, setSearch}){
     return(
         <div className="searchbar">
-            <label htmlFor="search">Search Plants:</label>
+            <label htmlFor="search">Search Products:</label>
             <input
                 type="text"
                 id="search"

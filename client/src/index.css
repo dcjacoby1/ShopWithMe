@@ -59,3 +59,43 @@
   cursor: pointer;
   margin-top: 10px;
 }
+
+/*---- HomePage ----*/
+.products {
+  list-style: none;
+}
+
+.product-tile {
+  margin: 1rem;
+}
+
+.product-tile img {
+  width: 100%;
+}
+
+.product-tile button {
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .products {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .product-tile {
+    width: calc(33% - 2rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-tile {
+    width: calc(25% - 2rem);
+  }
+}
+
+@media (min-width: 1200px) {
+  .product-tile {
+    width: calc(20% - 2rem);
+  }
+}

@@ -24,7 +24,7 @@ if __name__ == '__main__':
             product = Product(
                 name=fake.unique.word().title(),
                 price=randint(10, 1000),
-                image_url=fake.image_url(),
+                image_url="https://picsum.photos/535/647",
                 category=rc(Product.categories)
             )
             db.session.add(product)
@@ -50,13 +50,13 @@ if __name__ == '__main__':
             )
             db.session.add(shopping_cart)
 
-            # Add cart items to the shopping cart
-            for _ in range(randint(1, 5)):
-                cart_item = CartItem(
-                    product=rc(products),
-                    shopping_cart=shopping_cart
-                )
-                db.session.add(cart_item)
+            # # Add cart items to the shopping cart
+            # for _ in range(randint(1, 5)):
+            #     cart_item = CartItem(
+            #         product=rc(products),
+            #         shopping_cart=shopping_cart
+            #     )
+            #     db.session.add(cart_item)
 
         # Create orders for each user
         for user in users:

@@ -9,7 +9,7 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import User, Product
+from models import User, Product, ShoppingCart, CartItem
 
 # Views go here!
 
@@ -31,6 +31,50 @@ class Products(Resource):
         product_list = [product.to_dict() for product in products]
         return make_response(product_list, 200)
 api.add_resource(Products, '/products')
+
+class AddToCart(Resource):
+    def post(self):
+        params = request.json
+        user_id = session['user_id']
+        product_id = params['product_id']
+
+        user = User.query.get(user_id)
+        if not user:
+            return {"error": "User not found"}, 404
+
+        product = Product.query.get(product_id)
+        if not product:
+            return {"error": "Product not found"}, 404
+
+        # Check for existing cart
+        cart = ShoppingCart.query.filter_by(user_id=user_id, placed=False).first()
+
+        if not cart:
+            # Create a new cart if not exists
+            cart = ShoppingCart(user_id=user_id)
+            db.session.add(cart)
+            db.session.commit()
+
+        # Check if product is already in cart
+        cart_item = CartItem.query.filter_by(shopping_cart_id=cart.id, product_id=product_id).first()
+        
+        if cart_item:
+            # Increment quantity if item exists
+            cart_item.quantity += 1
+        else:
+            # Add new item to cart with default quantity of 1
+            cart_item = CartItem(
+                shopping_cart_id=cart.id,
+                product_id=product_id,
+                quantity=1
+            )
+            db.session.add(cart_item)
+
+        db.session.commit()
+        return {"message": "Item added to cart successfully"}, 200
+
+# Add the resource to the API
+api.add_resource(AddToCart, '/add_to_cart')
 
 #checks to see if user is logged in
 class CheckSession(Resource):

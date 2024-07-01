@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom"
 
-function Navbar({loggedInUser, setLoggedInUser}){
+function Navbar({loggedInUser, setLoggedInUser, cartTotal}){
     const navigate = useNavigate()
 
     function handleClick(){
@@ -16,7 +16,7 @@ function Navbar({loggedInUser, setLoggedInUser}){
 
                 <NavLink to="/account" style={{ fontSize: '35px', color: 'black', textDecoration: 'none', fontWeight: 'bold', display: 'flex'}}>Account</NavLink>
 
-                <NavLink to="/cart" style={{ fontSize: '35px', color: 'black', textDecoration: 'none', fontWeight: 'bold', display: 'flex'}}>Cart</NavLink>    
+                <NavLink to="/cart" style={{ fontSize: '35px', color: 'black', textDecoration: 'none', fontWeight: 'bold', display: 'flex'}}>Cart ({cartTotal})</NavLink>    
                 {/* switch to Navlink that takes to login/set account page if loggedInUser = false */}
                 <button onClick={handleClick}>{loggedInUser? "Logout": "Login"}</button> 
             </div>
