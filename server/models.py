@@ -39,7 +39,7 @@ class User(db.Model, SerializerMixin):
     
 class ShoppingCart(db.Model, SerializerMixin):
     __tablename__ = 'shopping_carts'
-    serialize_rules = ('-user.shopping_carts', '-cart_items.shopping_cart')
+    serialize_rules = ('-user', '-cart_items.shopping_cart')
 
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime, default=func.now(), nullable=False)

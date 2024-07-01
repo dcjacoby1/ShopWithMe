@@ -2,7 +2,6 @@ import { useOutletContext } from 'react-router-dom';
 
 function Product({name, price, image_url, product_id}){
     const context = useOutletContext()
-    const cartTotal = context.cartTotal
     const setCartTotal = context.setCartTotal
     
     function handleCart(){ 
@@ -20,12 +19,9 @@ function Product({name, price, image_url, product_id}){
                     resp.json().then(data => {
                         setCartTotal(prevCartTotal => prevCartTotal + 1)
                         console.log(data)
-    
                     })
-    
                 }
-            })
-        
+            })       
     }
 
     return(

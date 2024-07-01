@@ -73,8 +73,24 @@ class AddToCart(Resource):
         db.session.commit()
         return {"message": "Item added to cart successfully"}, 200
 
-# Add the resource to the API
 api.add_resource(AddToCart, '/add_to_cart')
+
+class ShoppingCarts(Resource):
+    def get(self):
+        user_id = session.get('user_id')
+        
+        if not user_id:
+            return {"error": "User not authenticated"}, 401
+        
+        shopping_cart = ShoppingCart.query.filter_by(user_id=user_id, placed=False).first()
+        
+        if not shopping_cart:
+            return {"note": "cart is empty"}, 200
+        cart_items = CartItem.query.filter(CartItem.shopping_cart_id == shopping_cart.id).all()
+        cart_list = [cart.to_dict() for cart in cart_items]
+        return make_response(cart_list, 200)
+    
+api.add_resource(ShoppingCarts, '/shopping_carts')
 
 #checks to see if user is logged in
 class CheckSession(Resource):
