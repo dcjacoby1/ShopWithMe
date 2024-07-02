@@ -32,6 +32,26 @@ class Products(Resource):
         return make_response(product_list, 200)
 api.add_resource(Products, '/products')
 
+class CartTotal(Resource):
+    def get(self):
+        user_id = session['user_id']
+        cart = ShoppingCart.query.filter_by(user_id=user_id, placed=False).first()
+        if not cart:
+            total = 0
+            return {'total': total}
+        cart_items = CartItem.query.filter_by(shopping_cart_id=cart.id).all()
+        if not cart_items:
+            total = 0
+            return {'total': total}
+        quantity = [cart_item.quantity for cart_item in cart_items]
+        total = 0
+        for i in quantity:
+            total += i
+        return {'total': total}
+    
+api.add_resource(CartTotal, '/cart_total')
+    
+
 class AddToCart(Resource):
     def post(self):
         params = request.json
@@ -71,9 +91,73 @@ class AddToCart(Resource):
             db.session.add(cart_item)
 
         db.session.commit()
-        return {"message": "Item added to cart successfully"}, 200
+        return {"message": "Item added to cart successfully"}, 201
 
 api.add_resource(AddToCart, '/add_to_cart')
+
+class DeleteCartItem(Resource):
+    def delete(self):
+        params = request.json
+        user_id = session['user_id']
+        product_id = params['product_id']
+
+        user = User.query.get(user_id)
+        if not user:
+            return {"error": "User not found"}, 404
+
+        product = Product.query.get(product_id)
+        if not product:
+            return {"error": "Product not found"}, 404
+
+        # Check for existing cart
+        cart = ShoppingCart.query.filter_by(user_id=user_id, placed=False).first()
+
+        if not cart:
+            return {"error": "Cart not found"}, 404
+        
+        cart_item = CartItem.query.filter_by(shopping_cart_id=cart.id, product_id=product_id).first()
+        if not cart_item:
+            return {"error": "Cart item not found"}, 404
+        db.session.delete(cart_item)
+        db.session.commit()
+        return '', 204
+api.add_resource(DeleteCartItem, '/delete_cart_item')
+
+class SubtractCartQuantity(Resource):
+    def post(self):
+        params = request.json
+        user_id = session['user_id']
+        product_id = params['product_id']
+
+        user = User.query.get(user_id)
+        if not user:
+            return {"error": "User not found"}, 404
+
+        product = Product.query.get(product_id)
+        if not product:
+            return {"error": "Product not found"}, 404
+
+        # Check for existing cart
+        cart = ShoppingCart.query.filter_by(user_id=user_id, placed=False).first()
+
+        if not cart:
+            return {"error": "Cart not found"}, 404
+        
+        cart_item = CartItem.query.filter_by(shopping_cart_id=cart.id, product_id=product_id).first()
+        if not cart_item:
+            return {"error": "Cart item not found"}, 404
+        if cart_item.quantity == 0:
+            db.session.delete(cart_item)
+            db.session.commit()
+            return '', 204
+        cart_item.quantity -= 1
+        db.session.commit()
+        return make_response(cart_item.to_dict(), 201)
+
+
+api.add_resource(SubtractCartQuantity, '/subtract_cart_quantity')
+        
+
 
 class ShoppingCarts(Resource):
     def get(self):
@@ -139,7 +223,7 @@ class Login(Resource):
 
         if user.authenticate(params.get('password')):
             session['user_id'] = user.id
-            return make_response(user.to_dict())
+            return make_response(user.to_dict(), 200)
         else:
             return make_response({'error': 'invalid password' }, 401)
 

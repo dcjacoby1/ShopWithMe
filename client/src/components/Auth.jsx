@@ -32,12 +32,13 @@ function Auth() {
 
     const handleSubmit = (values) => {
         const endpoint = signup ? '/signup' : '/login';
+        const requestBody = signup ? values : { email: values.email, password: values.password };
         fetch(endpoint, {
             method: 'POST',
             headers: {
                 "Content-Type": 'application/json'
             },
-            body: JSON.stringify(values)
+            body: JSON.stringify(requestBody)
         }).then((resp) => {
             if (resp.ok) {
                 resp.json().then((user) => {
@@ -46,9 +47,9 @@ function Auth() {
                     navigate('/')
                 });
             } else {
-                resp.json().then((errorData) => {
-                    console.log('Error:', errorData);
-                    setError(errorData.message || 'An error occurred');
+                resp.json().then((error) => {
+                    console.log('Error:', error);
+                    setError(error || 'An error occurred');
                 });
             }
         })
@@ -58,20 +59,28 @@ function Auth() {
         });
           
     };
+
+    //conditionally sends information based on if signup or login
+    const initialValues = signup 
+        ? {
+            first_name: '',
+            last_name: '',
+            email: '',
+            password: '',
+            passwordConfirmation: '',
+            phone_number: '',
+        } 
+        : {
+            email: '',
+            password: ''
+        };
     
     return (
     <div id="login-signup-container">
         <Container>
         <button onClick={toggleSignup}>{signup ? 'Login instead!' : 'Register for an account'}</button>
         <Formik
-            initialValues={{
-                first_name: '',
-                last_name: '',
-                email: '',
-                password: '',
-                passwordConfirmation: '',
-                phone_number: '',
-            }}
+            initialValues={initialValues}
             validationSchema={signup ? signupSchema : loginSchema}
             onSubmit={handleSubmit}
         >

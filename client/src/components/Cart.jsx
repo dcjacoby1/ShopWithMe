@@ -1,3 +1,4 @@
+import CartDirectory from "./Cart/CartDirectory"
 import CartList from "./Cart/CartList"
 import { useState, useEffect } from "react"
 function Cart(){
@@ -6,13 +7,20 @@ function Cart(){
     useEffect(() => {
         fetch("/shopping_carts")
         .then(response => response.json())
-        .then(cartItems => setCartItems(cartItems))
+        .then(cartItems => {
+            if (Array.isArray(cartItems)){ 
+                setCartItems(cartItems)
+            } else {
+                setCartItems([])
+            }
+        })
       },[])
 
     return(
         <main>
         <h2>Cart</h2>
-        <CartList cartItems={cartItems}/>
+        <CartDirectory />
+        <CartList cartItems={cartItems} setCartItems={setCartItems}/>
         </main>
     )
 }

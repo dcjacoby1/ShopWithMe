@@ -18,7 +18,6 @@ function Product({name, price, image_url, product_id}){
                 if (resp.ok) {
                     resp.json().then(data => {
                         setCartTotal(prevCartTotal => prevCartTotal + 1)
-                        console.log(data)
                     })
                 }
             })       
