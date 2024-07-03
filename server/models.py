@@ -76,6 +76,7 @@ class Order(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, default=func.now(), nullable=False)
     #can use property method for this
     total_cost = db.Column(db.Integer, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     # placed = db.Column(db.Boolean, nullable=False, default=1)
 

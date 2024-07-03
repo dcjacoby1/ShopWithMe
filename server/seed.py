@@ -43,37 +43,38 @@ if __name__ == '__main__':
             db.session.add(user)
             users.append(user)
 
-        # Create shopping carts for each user
-        for user in users:
-            shopping_cart = ShoppingCart(
-                user=user
-            )
-            db.session.add(shopping_cart)
+        # # Create shopping carts for each user
+        # for user in users:
+        #     shopping_cart = ShoppingCart(
+        #         user=user
+        #     )
+        #     db.session.add(shopping_cart)
 
-            # # Add cart items to the shopping cart
-            # for _ in range(randint(1, 5)):
-            #     cart_item = CartItem(
-            #         product=rc(products),
-            #         shopping_cart=shopping_cart
-            #     )
-            #     db.session.add(cart_item)
+        #     # Add cart items to the shopping cart
+        #     for _ in range(randint(1, 5)):
+        #         cart_item = CartItem(
+        #             product=rc(products),
+        #             shopping_cart=shopping_cart
+        #         )
+        #         db.session.add(cart_item)
 
-        # Create orders for each user
-        for user in users:
-            order = Order(
-                user=user,
-                total_cost=randint(50, 1000)
-            )
-            db.session.add(order)
+        # # Create orders for each user
+        # for user in users:
+        #     order = Order(
+        #         user=user,
+        #         quantity=randint(1, 5),
+        #         total_cost=randint(50, 1000)
+        #     )
+        #     db.session.add(order)
 
-            # Add order items to the order
-            for _ in range(randint(1, 5)):
-                order_item = OrderItem(
-                    product=rc(products),
-                    order=order,
-                    quantity=randint(1, 10)
-                )
-                db.session.add(order_item)
+        #     # Add order items to the order
+        #     for _ in range(randint(1, 5)):
+        #         order_item = OrderItem(
+        #             product=rc(products),
+        #             order=order,
+        #             quantity=randint(1, 10)
+        #         )
+        #         db.session.add(order_item)
 
         db.session.commit()
         print("Seeding complete!")
