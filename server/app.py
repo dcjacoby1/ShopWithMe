@@ -228,6 +228,7 @@ class CreateOrder(Resource):
 
             order = Order(
                 total_cost = params.get('total_cost'),
+                quantity = params.get('quantity'),
                 user_id = user_id
             )
             db.session.add(order)
@@ -237,8 +238,23 @@ class CreateOrder(Resource):
         except Exception as e:
             return make_response({"error": str(e)}, 400)
         
-
 api.add_resource(CreateOrder, '/create_order')
+
+class Orders(Resource):
+    def get(self):
+        user_id = session['user_id']
+        if not user_id:
+            return {"error": "User not authenticated"}, 401
+        orders = Order.query.filter(Order.user_id == user_id).all()
+        if not orders:
+            return {"note": "No orders placed"}, 200
+        sorted_orders = sorted(orders, key=lambda order: order.created_at, reverse=True)
+        orders_list = [order.to_dict() for order in sorted_orders]
+        return make_response(orders_list, 200)
+
+api.add_resource(Orders, '/orders')
+
+
 #checks to see if user is logged in
 class CheckSession(Resource):
     def get(self):

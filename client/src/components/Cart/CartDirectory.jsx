@@ -25,7 +25,8 @@ function CartDirectory({setCartItems}){
                 "Content-Type": 'application/json'
             },
             body: JSON.stringify({
-                total_cost : totalCost
+                total_cost : totalCost,
+                quantity: cartTotal
             })
         }).then(res => {
             setCartItems([])

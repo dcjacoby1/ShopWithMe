@@ -70,7 +70,7 @@ class CartItem(db.Model, SerializerMixin):
 
 class Order(db.Model, SerializerMixin):
     __tablename__ = 'orders'
-    serialize_rules = ('-user.orders', '-order_items.order')
+    serialize_rules = ('-user', '-order_items.order')
 
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime, default=func.now(), nullable=False)

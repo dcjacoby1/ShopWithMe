@@ -2,7 +2,7 @@ import CartItem from "./CartItem";
 
 function CartList({ cartItems, setCartItems, filteredCarts }) {
 
-    const mappedCarts = filteredCarts.map(cart => (
+    const mappedCarts = filteredCarts.map(cart => 
         <CartItem
             key={cart.id}
             name={cart.product.name}
@@ -13,7 +13,7 @@ function CartList({ cartItems, setCartItems, filteredCarts }) {
             setCartItems={setCartItems}
             cartItems={cartItems}
         />
-    ));
+    );
 
     return (
         <ul className="carts">
