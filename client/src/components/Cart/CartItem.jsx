@@ -7,6 +7,8 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
     const context = useOutletContext()
     const loggedInUser = context.loggedInUser
     const setCartTotal = context.setCartTotal
+    const setTotalCost = context.setTotalCost
+    
 
     function subtractQuantity(){
         ///subtract_cart_quantity
@@ -21,7 +23,9 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
             }).then(res => {
                 if (res.ok) {
                     res.json().then(data => {
+                        setTotalCost(prevTotalCost => prevTotalCost - data.product.price)
                         setCartTotal(prevCartTotal => prevCartTotal - 1)
+                        
                         setQuantity(prevQuantity => {
                             if (prevQuantity - 1 <= 0) {
                                 setCartItems(cartItems.filter(item => item.product.id !== product_id))
@@ -46,6 +50,7 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
             }).then(res => {
                 if (res.ok) {
                     res.json().then(data => {
+                        setTotalCost(prevTotalCost => prevTotalCost + price)
                         setCartTotal(prevCartTotal => prevCartTotal + 1)
                         setQuantity(prevQuantity => prevQuantity + 1)
                     })
@@ -64,7 +69,7 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
     }).then(res => {
         if (res.ok) {
                 setCartTotal(prevCartTotal => prevCartTotal - quantity)
-
+                setTotalCost(prevTotalCost => prevTotalCost - (quantity * price))
                 setCartItems(cartItems.filter(item => item.product.id !== product_id));
                 
             

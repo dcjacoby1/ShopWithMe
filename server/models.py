@@ -62,6 +62,10 @@ class CartItem(db.Model, SerializerMixin):
     shopping_cart = db.relationship('ShoppingCart', back_populates='cart_items')
     product = db.relationship('Product', back_populates='cart_items')
 
+    @property
+    def price(self):
+        return self.product.price
+
     
 
 class Order(db.Model, SerializerMixin):

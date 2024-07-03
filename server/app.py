@@ -9,7 +9,7 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import User, Product, ShoppingCart, CartItem
+from models import User, Product, ShoppingCart, CartItem, Order
 
 # Views go here!
 
@@ -50,6 +50,25 @@ class CartTotal(Resource):
         return {'total': total}
     
 api.add_resource(CartTotal, '/cart_total')
+
+class CartTotalPrice(Resource):
+    def get(self):
+        user_id = session['user_id']
+        cart = ShoppingCart.query.filter_by(user_id=user_id, placed=False).first()
+        if not cart:
+            total = 0
+            return {'total': total}
+        cart_items = CartItem.query.filter_by(shopping_cart_id=cart.id).all()
+        if not cart_items:
+            total = 0
+            return {'total': total}
+        price = [(cart_item.quantity * cart_item.price) for cart_item in cart_items]
+        total = 0
+        for i in price:
+            total += i
+        return {'total': total}
+    
+api.add_resource(CartTotalPrice, '/cart_total_price')
     
 
 class AddToCart(Resource):
@@ -174,8 +193,52 @@ class ShoppingCarts(Resource):
         cart_list = [cart.to_dict() for cart in cart_items]
         return make_response(cart_list, 200)
     
+    def delete(self):
+        user_id = session.get('user_id')
+
+        if not user_id:
+            return {"error": "User not authenticated"}, 401
+        shopping_cart = ShoppingCart.query.filter_by(user_id=user_id, placed=False).first()
+        if not shopping_cart:
+            return {"note": "cart is empty"}, 400
+        cart_items = CartItem.query.filter(CartItem.shopping_cart_id == shopping_cart.id).all()
+        try:
+            for cart_item in cart_items:
+                db.session.delete(cart_item)
+            db.session.commit()
+            return '', 204
+        except Exception as e:
+            db.session.rollback()
+            return {"error": str(e)}, 500
+    
 api.add_resource(ShoppingCarts, '/shopping_carts')
 
+class CreateOrder(Resource):
+    def post(self):
+        params = request.json
+        user_id = session['user_id']
+        if not user_id:
+            return {"error": "User not authenticated"}, 401
+        cart = ShoppingCart.query.filter_by(user_id=user_id, placed=False).first()
+        if not cart:
+            return {"error": "Cart not found"}, 404
+        try:
+            cart.placed = True   
+            db.session.commit()
+
+            order = Order(
+                total_cost = params.get('total_cost'),
+                user_id = user_id
+            )
+            db.session.add(order)
+            db.session.commit()
+            return make_response(order.to_dict(), 201)
+
+        except Exception as e:
+            return make_response({"error": str(e)}, 400)
+        
+
+api.add_resource(CreateOrder, '/create_order')
 #checks to see if user is logged in
 class CheckSession(Resource):
     def get(self):
