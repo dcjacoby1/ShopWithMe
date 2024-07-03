@@ -61,7 +61,7 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
     fetch('/delete_cart_item', {
         method: "DELETE",
         headers: {
-            "Content-Type": "application/json"  // Add headers if required by your server
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({
             product_id: product_id
@@ -75,11 +75,9 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
             
         } else {
             console.error("Error removing item:", res.status);
-            // Optionally handle different error scenarios based on res.status
         }
     }).catch(error => {
         console.error("Fetch error:", error);
-        // Handle network errors or other fetch-related issues
     });
 }
 

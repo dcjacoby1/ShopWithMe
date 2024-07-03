@@ -23,6 +23,18 @@ class Users(Resource):
         users = User.query.all()
         users_list = [user.to_dict() for user in users]
         return make_response(users_list, 200)
+    def delete(self):
+        user_id = session['user_id']
+        if not user_id:
+            return {"error": "User not authenticated"}, 401
+        user = User.query.filter(User.id == user_id).first()
+        if not user:
+            return {"error": "User not found"}, 404
+        session.pop('user_id', None)
+        db.session.delete(user)
+        db.session.commit()
+        return '', 204
+
 api.add_resource(Users, '/users')
 
 class Products(Resource):
@@ -35,6 +47,8 @@ api.add_resource(Products, '/products')
 class CartTotal(Resource):
     def get(self):
         user_id = session['user_id']
+        if not user_id:
+            return {"error": "User not authenticated"}, 401
         cart = ShoppingCart.query.filter_by(user_id=user_id, placed=False).first()
         if not cart:
             total = 0
