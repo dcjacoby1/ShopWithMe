@@ -1,8 +1,12 @@
-import CartList from "./Cart/CartList"
+import { useOutletContext, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from "react"
 import OrderList from "./Order/OrderList"
 function Orders(){
     const [orderList, setOrderList] = useState([])
+    const navigate = useNavigate()
+    const context = useOutletContext()
+    const loggedInUser = context.loggedInUser
+    
     useEffect(() => {
         fetch("/orders")
         .then(response => response.json())
@@ -14,6 +18,13 @@ function Orders(){
             }
         })
       },[])
+    
+    if (!loggedInUser) {
+        return (<div>
+            <p>Sign in to view orders</p>
+            <button onClick={() => navigate('/auth')}>Sign In</button>
+            </div>)
+    }
     
     if (orderList.length === 0){
         return <p>No orders placed</p>

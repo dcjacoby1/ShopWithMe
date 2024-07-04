@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import { Container } from '@mui/material';
 import { Formik } from 'formik';
-// import { useOutletContext } from 'react-router-dom';
 import * as yup from 'yup';
 import { useNavigate } from "react-router-dom";
 import { useOutletContext } from 'react-router-dom';
@@ -13,6 +12,8 @@ function Auth() {
     const navigate = useNavigate()
     const context = useOutletContext()
     const setLoggedInUser = context.setLoggedInUser
+    const setCartTotal = context.setCartTotal
+
     function toggleSignup() {
         setSignup((currentSignup) => !currentSignup);
     }

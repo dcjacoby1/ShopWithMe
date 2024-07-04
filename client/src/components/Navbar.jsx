@@ -14,9 +14,9 @@ function Navbar({loggedInUser, setLoggedInUser, cartTotal}){
 
                 <NavLink to="/orders" style={{ fontSize: '35px', color: 'black', textDecoration: 'none', fontWeight: 'bold', display: 'flex'}}>Orders</NavLink>
 
-                <NavLink to="/account" style={{ fontSize: '35px', color: 'black', textDecoration: 'none', fontWeight: 'bold', display: 'flex'}}>Account</NavLink>
+                <NavLink to="/cart" style={{ fontSize: '35px', color: 'black', textDecoration: 'none', fontWeight: 'bold', display: 'flex'}}>Cart ({cartTotal})</NavLink>
 
-                <NavLink to="/cart" style={{ fontSize: '35px', color: 'black', textDecoration: 'none', fontWeight: 'bold', display: 'flex'}}>Cart ({cartTotal})</NavLink>    
+                <NavLink to="/account" style={{ fontSize: '35px', color: 'black', textDecoration: 'none', fontWeight: 'bold', display: 'flex'}}>Account</NavLink>    
                 {/* switch to Navlink that takes to login/set account page if loggedInUser = false */}
                 <button onClick={handleClick}>{loggedInUser? "Logout": "Login"}</button> 
             </div>

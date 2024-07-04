@@ -34,6 +34,26 @@ class Users(Resource):
         db.session.delete(user)
         db.session.commit()
         return '', 204
+    def patch(self):
+        user_id = session.get('user_id')
+        if not user_id:
+            return {"error": "User not authenticated"}, 401
+        user = User.query.filter(User.id == user_id).first()
+        if not user:
+            return {"error": "User not found"}, 404
+        try:
+            params = request.json
+            check_email = User.query.filter(User.email == params.get('email')).first()
+            if check_email and check_email.id != user_id:
+                return make_response({"error": "Email already exists"}, 409)
+            for attr in params:
+                setattr(user, attr, params[attr])
+            db.session.commit()
+
+            return make_response(user.to_dict(), 202)
+        
+        except ValueError as v_error:
+            return make_response({'errors': str(v_error)}, 400)
 
 api.add_resource(Users, '/users')
 

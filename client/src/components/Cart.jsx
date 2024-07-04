@@ -1,8 +1,12 @@
 import CartDirectory from "./Cart/CartDirectory"
 import CartList from "./Cart/CartList"
 import { useState, useEffect } from "react"
+import { useOutletContext, useNavigate } from 'react-router-dom'
 function Cart(){
     const [cartItems, setCartItems] = useState([])
+    const navigate = useNavigate()
+    const context = useOutletContext()
+    const loggedInUser = context.loggedInUser
     //fetch user cart items
     useEffect(() => {
         fetch("/shopping_carts")
@@ -15,6 +19,12 @@ function Cart(){
             }
         })
       },[])
+    if (!loggedInUser) {
+        return (<div>
+            <p>Sign in to view cart</p>
+            <button onClick={() => navigate('/auth')}>Sign In</button>
+            </div>)
+    }
 
     if (cartItems.length === 0){
         return <p>Cart is empty</p>
