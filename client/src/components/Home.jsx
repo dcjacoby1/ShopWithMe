@@ -1,12 +1,15 @@
 import Search from "./Home/Search"
 import ProductList from "./Home/ProductList"
+import CategoryFilter from "./Home/CategoryFilter"
 
 import { useState, useEffect } from "react"
 
 function Home(){
     const [productDisplay, setProductDisplay] = useState([])
     const [search, setSearch] = useState('')
-    const filteredList = productDisplay.filter(
+    const [selectedCategory, setSelectedCategory] = useState("All")
+    const categoryFilter = selectedCategory === "All" ? productDisplay : productDisplay.filter(product => product.category === selectedCategory)
+    const filteredList = categoryFilter.filter(
         (product) =>
             product.name.toLowerCase().includes(search.toLowerCase())
     )
@@ -21,6 +24,7 @@ function Home(){
         <main>
         <h2>Home</h2>
         <Search search={search} setSearch={setSearch}/>
+        <CategoryFilter setSelectedCategory={setSelectedCategory}/>
         <ProductList filteredList={filteredList}/>
         </main>
     )
