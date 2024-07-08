@@ -18,7 +18,7 @@ function Navbar({loggedInUser, setLoggedInUser, cartTotal}){
 
                 <NavLink to="/account" style={{ fontSize: '35px', color: 'black', textDecoration: 'none', fontWeight: 'bold', display: 'flex'}}>Account</NavLink>    
                 {/* switch to Navlink that takes to login/set account page if loggedInUser = false */}
-                <button onClick={handleClick}>{loggedInUser? "Logout": "Login"}</button> 
+                <button onClick={handleClick} style={{ fontSize: '28px', color: 'black', textDecoration: 'none', fontWeight: 'bold', display: 'flex', backgroundColor: 'black', borderRadius: '7pt', background: 'transparent'}}>{loggedInUser? "Logout": "Login"}</button> 
             </div>
         </div>
     )

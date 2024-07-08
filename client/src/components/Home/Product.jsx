@@ -28,10 +28,10 @@ function Product({name, price, image_url, product_id}){
     return(
         <li className="product-tile">
             <img src={image_url} alt={name} />
-            <h4>{name}</h4>
-            <p>Price: ${price}</p>
-            <button onClick={handleCart}>Add To Cart</button>
-
+            <div className="product-details">
+                <h4>{name} / ${price}</h4>
+                <button onClick={handleCart} className="add-to-cart-button">Add To Cart</button>
+            </div>
         </li>
     )
 }

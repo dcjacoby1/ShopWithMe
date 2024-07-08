@@ -23,8 +23,10 @@ function Home(){
     return(
         <main>
         <h2>Home</h2>
+        <div className="search">
         <Search search={search} setSearch={setSearch}/>
         <CategoryFilter setSelectedCategory={setSelectedCategory}/>
+        </div>
         <ProductList filteredList={filteredList}/>
         </main>
     )

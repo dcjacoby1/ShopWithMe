@@ -3,8 +3,8 @@ import { useState } from "react";
 import { UsePagination } from "./Pagination";
 function ProductList({filteredList}){
     const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 10;
-    const siblingCount = 1;
+    const pageSize = 10
+    const siblingCount = 1
     const pagination = UsePagination({
         totalCount: filteredList.length,
         pageSize,
@@ -36,12 +36,7 @@ function ProductList({filteredList}){
             <ul className="products">{mappedProducts}</ul>
             <div
                 className="pagination"
-                style={{
-                position: "fixed",
-                bottom: "20px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                }}
+                
             >
                 {pagination.map((page, index) => (
                 <button

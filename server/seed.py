@@ -20,7 +20,7 @@ if __name__ == '__main__':
 
         # Create 10 new products
         products = []
-        for _ in range(10):
+        for _ in range(35):
             product = Product(
                 name=fake.unique.word().title(),
                 price=randint(10, 1000),

@@ -4,9 +4,9 @@ function CategoryFilter({setSelectedCategory}){
         setSelectedCategory(category)
       }
     return(
-        <div className="Filter">
-          <select name="filter" onChange={handleCategoryChange}>
-            <option value="All">Filter by category</option>
+        <div className="category-filter">
+          <select name="filters"  onChange={handleCategoryChange}>
+            <option value="All">All Categories</option>
             <option value="board">Board Game</option>
             <option value="active">Active Game</option>
             <option value="accessories">Game Accessories</option>
