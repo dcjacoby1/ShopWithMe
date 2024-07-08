@@ -79,7 +79,6 @@ function Auth() {
     return (
     <div id="login-signup-container">
         <Container>
-        <button onClick={toggleSignup}>{signup ? 'Login instead!' : 'Register for an account'}</button>
         <Formik
             initialValues={initialValues}
             validationSchema={signup ? signupSchema : loginSchema}
@@ -160,6 +159,7 @@ function Auth() {
                     )}
 
                     <button type="submit">{signup ? 'Sign Up' : 'Login'}</button>
+                    <button onClick={toggleSignup}>{signup ? 'Login instead!' : 'Register for an account'}</button>
                 </form>
             )}
         </Formik>

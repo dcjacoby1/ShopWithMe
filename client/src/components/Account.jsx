@@ -7,7 +7,7 @@ function Account(){
     const loggedInUser = context.loggedInUser
 
     if (!loggedInUser) {
-        return (<div>
+        return (<div className='not-logged-in-page'>
             <p>Sign in to view account</p>
             <button onClick={() => navigate('/auth')}>Sign In</button>
             </div>)

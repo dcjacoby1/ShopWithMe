@@ -20,14 +20,14 @@ function Cart(){
         })
       },[])
     if (!loggedInUser) {
-        return (<div>
+        return (<div className='not-logged-in-page'>
             <p>Sign in to view cart</p>
             <button onClick={() => navigate('/auth')}>Sign In</button>
             </div>)
     }
 
     if (cartItems.length === 0){
-        return <p>Cart is empty</p>
+        return <p className='empty-page'>Cart Is Empty</p>
     }
 
     //only displays the cartItem if there is remaining quantity

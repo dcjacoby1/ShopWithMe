@@ -24,7 +24,8 @@ if __name__ == '__main__':
             product = Product(
                 name=fake.unique.word().title(),
                 price=randint(10, 1000),
-                image_url="https://picsum.photos/535/647",
+                # image_url="https://picsum.photos/535/647",
+                image_url=f"https://picsum.photos/seed/{fake.uuid4()}/535/647",
                 category=rc(Product.categories)
             )
             db.session.add(product)

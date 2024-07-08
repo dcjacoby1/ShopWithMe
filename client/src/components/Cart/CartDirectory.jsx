@@ -38,11 +38,13 @@ function CartDirectory({setCartItems}){
     })
     }
     return(
-        <div>
+        <div className="cart-directory">
             <p>Item Count: {cartTotal}</p>
             <p>Total Cost: ${totalCost}</p>
-            <button onClick={cancelCart}>Cancel Cart</button>
-            <button onClick={placeOrder}>Place Order</button>
+            <div>
+            <button onClick={cancelCart} style={{backgroundColor: "#878787", border: "none"}}>Cancel Cart</button>
+            <button onClick={placeOrder} style={{backgroundColor: "#128ff9", border: "none"}}>Place Order</button>
+            </div>
         </div>
     )
 }

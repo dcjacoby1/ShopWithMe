@@ -20,14 +20,14 @@ function Orders(){
       },[])
     
     if (!loggedInUser) {
-        return (<div>
+        return (<div className='not-logged-in-page'>
             <p>Sign in to view orders</p>
             <button onClick={() => navigate('/auth')}>Sign In</button>
             </div>)
     }
     
     if (orderList.length === 0){
-        return <p>No orders placed</p>
+        return <p className='empty-page'>No Orders Placed</p>
     }
     return(
         <main>

@@ -66,22 +66,21 @@ function AccountSettings(){
     }
     return(
         <Container>
-            <div>
-                {!showEditForm && (
-                    <button onClick={() => setShowEditForm(true)}>
-                        Edit Profile
-                    </button>
-                )}
-                {!showEditForm && (
-                    <button onClick={deleteProfile}>
-                        Delete Profile
-                    </button>
-                )}
+            {!showEditForm && (
+            <div className='account-settings'>
+                <p>Account Settings</p>
+                <button onClick={() => setShowEditForm(true)}>
+                Edit Profile
+                </button>
+                <button onClick={deleteProfile}>
+                Delete Profile
+                </button>
             </div>
-            {showEditForm && (
-                <EditProfile handleEditSubmit={handleEditSubmit} error={error} showEditForm={showEditForm} setShowEditForm={setShowEditForm} setError={setError} />
             )}
-        </Container> 
+            {showEditForm && (
+            <EditProfile handleEditSubmit={handleEditSubmit} error={error} showEditForm={showEditForm} setShowEditForm={setShowEditForm} setError={setError} />
+            )}
+    </Container> 
     )
 }
 export default AccountSettings

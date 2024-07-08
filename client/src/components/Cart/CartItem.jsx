@@ -82,16 +82,33 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
 }
 
     return(
-        <li className="product-tile">
+        <div className="cart-tile">
             <img src={image_url} alt={name} />
-            <h4>{name}</h4>
-            <p>Price: ${price * quantity}</p>
-            <p>Quantity: {quantity}</p>
-            <button onClick={subtractQuantity}>-</button>
-            <button onClick={addQuantity}>+</button>
-            <button onClick={deleteItem}>remove</button>
+            <div className="cart-item-details">
+                <div>
+                    <p>Product Name</p>
+                    <h3>{name}</h3>
+                </div>
+                <div>
+                    <p>Unit Price</p>
+                    <h3>${price}</h3>
+                </div>
+                <div>
+                    <p>Total Price</p>
+                    <h3>${price * quantity}</h3>
+                </div>
+            </div>
+            <div className="cart-item-quantity">
+                <div>
 
-        </li>
+                    <button onClick={subtractQuantity}>-</button>
+                    <p>{quantity}</p>
+                    <button onClick={addQuantity}>+</button>
+                </div>
+                <button onClick={deleteItem} style={{fontSize: "20px"}}>remove</button>
+            </div>
+
+        </div>
     )
 }
 export default CartItem
