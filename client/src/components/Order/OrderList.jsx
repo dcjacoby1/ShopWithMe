@@ -3,7 +3,7 @@ import { useState } from "react"
 import { UsePagination } from "../Home/Pagination"
 function OrderList({orderList}){
     const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 5;
+    const pageSize = 4;
     const siblingCount = 1;
     const pagination = UsePagination({
         totalCount: orderList.length,
@@ -29,15 +29,9 @@ function OrderList({orderList}){
     )
     return(
         <div>
-            <ul className="orders">{mappedOrders}</ul>
+            <div className="orders">{mappedOrders}</div>
             <div
                 className="pagination"
-                style={{
-                position: "fixed",
-                bottom: "20px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                }}
             > 
                 {pagination.map((page, index) => (
                 <button

@@ -108,7 +108,7 @@
   color: #ffffff;
   border-radius: 3px;
   border: none;
-  padding: 8px 8px; /* Adjust padding to increase button size */
+  padding: 8px 8px;
   font-size: 16px;
 }
 
@@ -171,4 +171,48 @@
   cursor: pointer;
   padding: 0;
   
+}
+
+.pagination button.active {
+  font-weight: bold;
+  color: black;
+}
+
+
+/*---- OrdersPage ----*/
+
+.orders {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+
+}
+
+.order-tile {
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: row;
+  border: 2px solid #b7deff;
+  width: 60%;
+  padding: 1.5rem;
+  border-radius: 9px;
+  justify-content: space-between;
+  background-color: #E8EFF0;
+}
+
+.order-tile > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  margin-right: 10rem;
+}
+
+.order-tile h3 {
+  font-size: 25px;
+}
+.order-tile p {
+  font-size: 20px;
 }
