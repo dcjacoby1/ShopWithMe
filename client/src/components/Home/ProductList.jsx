@@ -34,19 +34,20 @@ function ProductList({filteredList}){
     return(
         <div>
             <ul className="products">{mappedProducts}</ul>
-            <div
-                className="pagination"
-                
-            >
+            <div className="pagination">
                 {pagination.map((page, index) => (
-                <button
-                    key={index}
-                    onClick={() => handleClick(page)}
-                    className={currentPage === page ? "active" : ""}
-                    style={{ fontSize: "20px", padding: "10px 20px" }}
-                >
-                    {page}
-                </button>
+                    page === "..." ? (
+                        <span key={index} style={{ fontSize: "20px", padding: "10px 20px" }}>...</span>
+                    ) : (
+                        <button
+                            key={index}
+                            onClick={() => handleClick(page)}
+                            className={currentPage === page ? "active" : ""}
+                            style={{ fontSize: "20px", padding: "10px 20px" }}
+                        >
+                            {page}
+                        </button>
+                    )
                 ))}
             </div>
     </div>

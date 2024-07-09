@@ -17,6 +17,16 @@ function Auth() {
     function toggleSignup() {
         setSignup((currentSignup) => !currentSignup);
     }
+
+    const fetchCartTotal = () => {
+        fetch('/cart_total')
+          .then(resp => {
+            if (resp.ok) {
+              resp.json().then(data => setCartTotal(data.total))
+            }
+          })
+      }
+
     const signupSchema = yup.object().shape({
         first_name: yup.string().required('First Name is required'),
         last_name: yup.string().required('Last Name is required'),
@@ -43,8 +53,9 @@ function Auth() {
         }).then((resp) => {
             if (resp.ok) {
                 resp.json().then((user) => {
-                    setLoggedInUser(user);
+                    setLoggedInUser(user)
                     setSignup(true)
+                    fetchCartTotal()
                     navigate('/')
                 });
             } else {

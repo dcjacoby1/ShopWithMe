@@ -219,7 +219,7 @@
   padding: 1.5rem;
   border-radius: 9px;
   justify-content: space-between;
-  background-color: #E8EFF0;
+  background-color: #e8e8e8;
 }
 
 .order-tile > div {
@@ -295,7 +295,7 @@
   border-radius: 15px;
   justify-content: space-between;
   align-items: cen;
-  background-color: #E8EFF0;
+  background-color: #e8e8e8;
 }
 
 .cart-item-details {

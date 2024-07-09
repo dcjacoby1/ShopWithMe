@@ -36,7 +36,7 @@ function App() {
 
   return( 
   <div className="app">
-  <Navbar loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} cartTotal={cartTotal}/>
+  <Navbar loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} cartTotal={cartTotal} setCartTotal={setCartTotal}/>
   <Outlet context={{loggedInUser, setLoggedInUser, cartTotal, setCartTotal, totalCost, setTotalCost}}/>
   {/* <Auth loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} /> */}
   </div>

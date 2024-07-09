@@ -1,10 +1,35 @@
 import { NavLink, useNavigate } from "react-router-dom"
 
-function Navbar({loggedInUser, setLoggedInUser, cartTotal}){
+function Navbar({loggedInUser, setLoggedInUser, cartTotal, setCartTotal}){
     const navigate = useNavigate()
 
     function handleClick(){
-        loggedInUser? setLoggedInUser(null): navigate("/auth")
+        if (loggedInUser) {
+            fetch('/logout', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((resp) => {
+                if (resp.ok) {
+                    setLoggedInUser(null)
+                    setCartTotal(0)
+                    console.log('User logged out successfully');
+                } else {
+                    resp.json().then((error) => {
+                        console.log('Error:', error);
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log('Network error:', error);
+            })
+            
+
+        } else{
+            navigate("/auth")
+        } 
     }
 
     return(

@@ -30,18 +30,20 @@ function OrderList({orderList}){
     return(
         <div>
             <div className="orders">{mappedOrders}</div>
-            <div
-                className="pagination"
-            > 
+            <div className="pagination">
                 {pagination.map((page, index) => (
-                <button
-                    key={index}
-                    onClick={() => handleClick(page)}
-                    className={currentPage === page ? "active" : ""}
-                    style={{ fontSize: "20px", padding: "10px 20px" }}
-                >
-                    {page}
-                </button>
+                    page === "..." ? (
+                        <span key={index} style={{ fontSize: "20px", padding: "10px 20px" }}>...</span>
+                    ) : (
+                        <button
+                            key={index}
+                            onClick={() => handleClick(page)}
+                            className={currentPage === page ? "active" : ""}
+                            style={{ fontSize: "20px", padding: "10px 20px" }}
+                        >
+                            {page}
+                        </button>
+                    )
                 ))}
             </div>
         </div>
