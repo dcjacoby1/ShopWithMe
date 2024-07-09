@@ -1,28 +1,34 @@
-import { useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 
 function Product({name, price, image_url, product_id}){
+    const navigate = useNavigate()
     const context = useOutletContext()
     const setCartTotal = context.setCartTotal
     const setTotalCost = context.setTotalCost
+    const loggedInUser = context.loggedInUser
     
     function handleCart(){ 
-
-        fetch('/add_to_cart', {
-            method: 'POST',
-            headers: {
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify({
-                product_id: product_id
-            })
-            }).then(resp => {
-                if (resp.ok) {
-                    resp.json().then(data => {
-                        setCartTotal(prevCartTotal => prevCartTotal + 1)
-                        setTotalCost(prevTotalCost => prevTotalCost + price)
-                    })
-                }
-            })       
+        if (loggedInUser) {
+            fetch('/add_to_cart', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify({
+                    product_id: product_id
+                })
+                }).then(resp => {
+                    if (resp.ok) {
+                        resp.json().then(data => {
+                            setCartTotal(prevCartTotal => prevCartTotal + 1)
+                            setTotalCost(prevTotalCost => prevTotalCost + price)
+                        })
+                    }
+                })       
+        } else {
+            navigate('/auth')
+        }
+        
     }
 
     return(
