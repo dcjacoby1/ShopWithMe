@@ -22,8 +22,6 @@ class User(db.Model, SerializerMixin):
     shopping_carts = db.relationship('ShoppingCart', back_populates='user', cascade='all, delete-orphan')
     orders = db.relationship('Order', back_populates='user', cascade='all, delete-orphan')
 
-
-
     #encrypts password
     @property
     def password_hash(self):
@@ -74,11 +72,9 @@ class Order(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime, default=func.now(), nullable=False)
-    #can use property method for this
     total_cost = db.Column(db.Integer, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    # placed = db.Column(db.Boolean, nullable=False, default=1)
 
     user = db.relationship('User', back_populates='orders')
     order_items = db.relationship('OrderItem', back_populates='order', cascade='all, delete-orphan')
@@ -94,12 +90,10 @@ class Product(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False)
     price = db.Column(db.Integer, nullable=False)
     image_url = db.Column(db.String, nullable=False)
-    # in_stock = db.Column(db.Boolean, nullable=False, default=True)
     category = db.Column(db.String, nullable=False)
 
     order_items = db.relationship('OrderItem', back_populates='product', cascade='all, delete-orphan')
     cart_items = db.relationship('CartItem', back_populates='product', cascade='all, delete-orphan')
-    #make validation for categories
 
 class OrderItem(db.Model, SerializerMixin):
     __tablename__ = 'order_items'
