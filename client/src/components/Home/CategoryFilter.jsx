@@ -1,8 +1,11 @@
-function CategoryFilter({setSelectedCategory}){
-    function handleCategoryChange(event) {
-        const category = event.target.value;
+function CategoryFilter({setSelectedCategory, setCurrentPage}){
+    
+  function handleCategoryChange(event) {
+        const category = event.target.value
         setSelectedCategory(category)
+        setCurrentPage(1)
       }
+      
     return(
         <div className="category-filter">
           <select name="filters"  onChange={handleCategoryChange}>

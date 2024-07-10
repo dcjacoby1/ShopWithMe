@@ -44,8 +44,7 @@ function Navbar({loggedInUser, setLoggedInUser, cartTotal, setCartTotal}){
                 <NavLink to="/account" >Account</NavLink>    
                 {/* switch to Navlink that takes to login/set account page if loggedInUser = false */}
                 <button onClick={handleClick} >{loggedInUser? "Logout": "Login"}</button> 
-            </div>
-            
+            </div>    
         </div>
     )
 }

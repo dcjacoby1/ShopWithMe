@@ -1,10 +1,10 @@
-import React from 'react';
-import { useState } from 'react';
-import { Container } from '@mui/material';
-import { Formik } from 'formik';
-import * as yup from 'yup';
-import { useNavigate } from "react-router-dom";
-import { useOutletContext } from 'react-router-dom';
+import React from 'react'
+import { useState } from 'react'
+import { Container } from '@mui/material'
+import { Formik } from 'formik'
+import * as yup from 'yup'
+import { useNavigate } from "react-router-dom"
+import { useOutletContext } from 'react-router-dom'
 
 function Auth() {
     const [signup, setSignup] = useState(false)

@@ -1,8 +1,7 @@
-import EditProfile from './EditProfile';
-
-import { useState } from 'react';
-import { useOutletContext } from "react-router-dom";
-import { Container } from '@mui/material';
+import EditProfile from './EditProfile'
+import { useState } from 'react'
+import { useOutletContext } from "react-router-dom"
+import { Container } from '@mui/material'
 
 function AccountSettings(){
     const [error, setError] = useState("")
@@ -11,8 +10,9 @@ function AccountSettings(){
     const setLoggedInUser = context.setLoggedInUser
     const setCartTotal = context.setCartTotal
 
+//only updates the filled in fields on the edit profile form
     function handleEditSubmit(values) {
-        const valuesCopy = Object.assign({}, values);
+        const valuesCopy = Object.assign({}, values)
         for (const key in valuesCopy) {
             if (valuesCopy[key] === '') {
                 delete valuesCopy[key]
@@ -58,11 +58,11 @@ function AccountSettings(){
                 setLoggedInUser(null)
                 setCartTotal(0)
             } else {
-                console.error("Error removing item:", res.status);
+                console.error("Error removing item:", res.status)
             }
         }).catch(error => {
-            console.error("Fetch error:", error);
-        });     
+            console.error("Fetch error:", error)
+        })     
     }
     return(
         <Container>

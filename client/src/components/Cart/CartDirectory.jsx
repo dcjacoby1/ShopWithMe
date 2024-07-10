@@ -1,10 +1,12 @@
 import { useOutletContext } from "react-router-dom"
+
 function CartDirectory({setCartItems}){
     const context = useOutletContext()
     const setCartTotal = context.setCartTotal
     const cartTotal = context.cartTotal
     const setTotalCost = context.setTotalCost
     const totalCost = context.totalCost
+    
     function cancelCart(){
         fetch('/shopping_carts', {
             method: 'DELETE'
@@ -14,7 +16,7 @@ function CartDirectory({setCartItems}){
                 setTotalCost(0)
         })
         .catch(error => {
-            console.error('error:', error);
+            console.error('error:', error)
         })
     }
 
@@ -34,9 +36,11 @@ function CartDirectory({setCartItems}){
             setTotalCost(0)
     })
     .catch(error => {
-        console.error('error:', error);
+        console.error('error:', error)
     })
     }
+
+
     return(
         <div className="cart-directory">
             <p>Item Count: {cartTotal}</p>

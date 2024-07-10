@@ -1,6 +1,6 @@
-import { useOutletContext } from "react-router-dom";
-import { Formik } from 'formik';
-import * as yup from 'yup';
+import { useOutletContext } from "react-router-dom"
+import { Formik } from 'formik'
+import * as yup from 'yup'
 
 
 
@@ -31,7 +31,7 @@ function EditProfile({ handleEditSubmit, error, showEditForm, setShowEditForm, s
             validationSchema={signupSchema}
             onSubmit={(values, { setSubmitting }) => {
                 handleEditSubmit(values)
-                    .finally(() => setSubmitting(false));
+                    .finally(() => setSubmitting(false))
             }}
         >
             {({ handleSubmit, values, handleChange, errors, isSubmitting }) => (

@@ -1,17 +1,15 @@
 import { useOutletContext } from "react-router-dom"
 import { useState } from "react"
+
 function CartItem({name, image_url, initialQuantity, price, product_id, setCartItems, cartItems}) {
 
     const [quantity, setQuantity] = useState(initialQuantity)
-
     const context = useOutletContext()
-    const loggedInUser = context.loggedInUser
     const setCartTotal = context.setCartTotal
     const setTotalCost = context.setTotalCost
-    
-
+  
+    //functions to change specific item quantity in cart
     function subtractQuantity(){
-        ///subtract_cart_quantity
         fetch('/subtract_cart_quantity', {
             method: 'POST',
             headers: {
@@ -25,12 +23,11 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
                     res.json().then(data => {
                         setTotalCost(prevTotalCost => prevTotalCost - data.product.price)
                         setCartTotal(prevCartTotal => prevCartTotal - 1)
-                        
                         setQuantity(prevQuantity => {
                             if (prevQuantity - 1 <= 0) {
                                 setCartItems(cartItems.filter(item => item.product.id !== product_id))
                             }
-                            return prevQuantity - 1;
+                            return prevQuantity - 1
                         })
                         
                         console.log('item removed')
@@ -38,6 +35,7 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
                 }
             }) 
     }
+
     function addQuantity(){
         fetch('/add_to_cart', {
             method: 'POST',
@@ -57,6 +55,7 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
                 }
             })  
     }
+
     function deleteItem() {
     fetch('/delete_cart_item', {
         method: "DELETE",

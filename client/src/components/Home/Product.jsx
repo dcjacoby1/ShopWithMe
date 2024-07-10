@@ -1,4 +1,4 @@
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom'
 
 function Product({name, price, image_url, product_id}){
     const navigate = useNavigate()

@@ -1,10 +1,11 @@
 import Order from "./Order"
 import { useState } from "react"
 import { UsePagination } from "../Home/Pagination"
+
 function OrderList({orderList}){
-    const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 4;
-    const siblingCount = 1;
+    const [currentPage, setCurrentPage] = useState(1)
+    const pageSize = 4
+    const siblingCount = 1
     const pagination = UsePagination({
         totalCount: orderList.length,
         pageSize,
@@ -16,7 +17,7 @@ function OrderList({orderList}){
         pageSize * currentPage
     )
     const handleClick = (page) => {
-        setCurrentPage(page);
+        setCurrentPage(page)
     }
 
     const mappedOrders = slicedOrders.map(order => 
@@ -27,6 +28,7 @@ function OrderList({orderList}){
         item_count={order.quantity}
         />
     )
+
     return(
         <div>
             <div className="orders">{mappedOrders}</div>

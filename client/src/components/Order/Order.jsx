@@ -5,7 +5,8 @@ function Order({order_date, order_total, item_count}){
         year: 'numeric',
         hour: 'numeric',
         minute: 'numeric',
-    });
+    })
+
     return(
         <div className="order-tile">
             <div>
@@ -20,7 +21,6 @@ function Order({order_date, order_total, item_count}){
                 <h3>Item Count:</h3> 
                 <p>{item_count}</p>
             </div>
-
         </div>
     )
 }

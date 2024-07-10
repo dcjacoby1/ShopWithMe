@@ -1,6 +1,7 @@
 import { useOutletContext, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from "react"
 import OrderList from "./Order/OrderList"
+
 function Orders(){
     const [orderList, setOrderList] = useState([])
     const navigate = useNavigate()
@@ -29,6 +30,7 @@ function Orders(){
     if (orderList.length === 0){
         return <p className='empty-page'>No Orders Placed</p>
     }
+    
     return(
         <main>
         <h2>Orders</h2>
