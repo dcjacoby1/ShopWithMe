@@ -7,12 +7,11 @@ function CategoryFilter({setSelectedCategory}){
         <div className="category-filter">
           <select name="filters"  onChange={handleCategoryChange}>
             <option value="All">All Categories</option>
-            <option value="board">Board Game</option>
-            <option value="active">Active Game</option>
-            <option value="accessories">Game Accessories</option>
-            <option value="outdoors">Outdoor Game</option>
-            <option value="video_digital">Online Game</option>
-            <option value="video_physical">Video Game</option>
+            <option value="board">Board Games</option>
+            <option value="active">Active Games</option>
+            <option value="outdoors">Outdoor Games</option>
+            <option value="video_physical">Video Games</option>
+            <option value="accessories">Game Balls</option>
           </select>
         </div>
     )
