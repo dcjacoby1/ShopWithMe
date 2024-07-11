@@ -109,6 +109,7 @@ class CartTotalPrice(Resource):
         if not cart_items:
             total = 0
             return {'total': total}
+        
         price = [(cart_item.quantity * cart_item.price) for cart_item in cart_items]
         total = 0
         for i in price:

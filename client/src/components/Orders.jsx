@@ -17,6 +17,9 @@ function Orders(){
             } else {
                 setOrderList([])
             }
+            if (orderList.length === 0){
+                return <p className='empty-page'>No Orders Placed</p>
+            }
         })
       },[])
     
@@ -27,10 +30,7 @@ function Orders(){
             </div>)
     }
     
-    if (orderList.length === 0){
-        return <p className='empty-page'>No Orders Placed</p>
-    }
-    
+
     return(
         <main>
         <h2>Orders</h2>

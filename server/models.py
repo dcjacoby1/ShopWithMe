@@ -1,13 +1,9 @@
-from sqlalchemy import MetaData, func
-from sqlalchemy.orm import validates
-
-
+from sqlalchemy import func
+# from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
-from sqlalchemy.ext.associationproxy import association_proxy
-
+# from sqlalchemy.ext.associationproxy import association_proxy
 from config import db, bcrypt
 
-# Models go here!
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
     serialize_rules = ('-orders.user','-shopping_carts.user')

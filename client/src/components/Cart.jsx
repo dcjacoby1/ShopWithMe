@@ -19,6 +19,9 @@ function Cart(){
             } else {
                 setCartItems([])
             }
+            if (cartItems.length === 0){
+                return <p className='empty-page'>Cart Is Empty</p>
+            }
         })
       },[])
 
@@ -29,9 +32,6 @@ function Cart(){
             </div>)
     }
 
-    if (cartItems.length === 0){
-        return <p className='empty-page'>Cart Is Empty</p>
-    }
 
     //only displays the cartItem if there is remaining quantity
     const filteredCarts = cartItems.filter(cart => cart.quantity > 0);
