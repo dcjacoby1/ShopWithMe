@@ -34,10 +34,11 @@ function Cart(){
 
 
     //only displays the cartItem if there is remaining quantity
-    const filteredCarts = cartItems.filter(cart => cart.quantity > 0);
+    const filteredCarts = cartItems.filter(cart => cart.quantity > 0)
+
 
     if (filteredCarts.length === 0) {
-        return <p>No items in cart</p>;
+        return <p className='empty-page'>Cart Is Empty</p>
     }
 
 

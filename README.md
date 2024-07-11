@@ -13,6 +13,20 @@ As a competitor, games have always been a focal point of my life.
 Whether its a board game, a sport, or a video game - I play to win.
 GameShop is an online shop dedicated to those that share that same joy of winning by offering your favorite games in one central hub!
 
+
+## Setting Up Browser in Terminal
+
+Backend:
+pipenv install
+pipenv shell
+cd server 
+python app.py
+
+
+Frontend (seperate terminal):
+npm install
+npm start (click into link if not redirected automatically)
+
 ## User Stories
 
 As a user I can...
