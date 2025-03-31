@@ -1,3 +1,5 @@
+#func allows you to call sql functions in python - use it for datetime so that db logging time isn't mismatches if we were to call it with BE
+#since we store timestamp in db, we let the db decide the time, so we avoid BE saying one time and DB say another
 from sqlalchemy import func
 # from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
