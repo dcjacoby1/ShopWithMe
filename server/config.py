@@ -40,5 +40,5 @@ CORS(app)
 # Encryption
 bcrypt = Bcrypt(app)
 
-# Set secret key from environment variable or use default
-app.secret_key = os.environ.get('SECRET_KEY', b'\xa4.\xab\x9dL\r\xd4\xdcF{\xd1\xb3\xc6\xbeA\xd7')
+# Set secret key from environment variable
+app.secret_key = os.environ.get('SECRET_KEY')

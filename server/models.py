@@ -15,7 +15,7 @@ class User(db.Model, SerializerMixin):
     last_name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True, nullable = False)
     _password_hash = db.Column(db.String, nullable = False)
-    phone_number = db.Column(db.Integer, nullable = True)
+    phone_number = db.Column(db.String, nullable = True)
 
     shopping_carts = db.relationship('ShoppingCart', back_populates='user', cascade='all, delete-orphan')
     orders = db.relationship('Order', back_populates='user', cascade='all, delete-orphan')
