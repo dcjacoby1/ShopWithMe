@@ -5,10 +5,21 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_bcrypt import Bcrypt
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Instantiate app, set attributes
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+
+# Configure database
+if os.environ.get('DATABASE_URL'):
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
@@ -29,4 +40,5 @@ CORS(app)
 # Encryption
 bcrypt = Bcrypt(app)
 
-app.secret_key = b'\xa4.\xab\x9dL\r\xd4\xdcF{\xd1\xb3\xc6\xbeA\xd7'
+# Set secret key from environment variable or use default
+app.secret_key = os.environ.get('SECRET_KEY', b'\xa4.\xab\x9dL\r\xd4\xdcF{\xd1\xb3\xc6\xbeA\xd7')
