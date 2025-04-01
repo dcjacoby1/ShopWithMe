@@ -21,12 +21,50 @@ services:
   - type: web
     name: shopwithme-frontend
     env: static
-    buildCommand: cd client && npm install && npm run build
+    buildCommand: cd client && cp package.prod.json package.json && npm install && npm run build
     staticPublishPath: ./client/build
     envVars:
       - key: REACT_APP_API_URL
         sync: false
 ```
+
+### 1.3 Create Production Package File
+Create a `package.prod.json` in your client directory with only the necessary dependencies for production:
+
+```json
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.20",
+    "formik": "^2.4.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.24.0",
+    "react-scripts": "5.0.1",
+    "yup": "^1.4.0"
+  },
+  "scripts": {
+    "build": "react-scripts build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
+  }
+}
+```
+
+This production package file:
+- Removes development dependencies
+- Removes testing libraries
+- Keeps only the essential runtime dependencies
+- Optimizes the build process
 
 ## Step 2: Deploy Frontend to Render
 
