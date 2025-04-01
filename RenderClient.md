@@ -76,8 +76,14 @@ This production package file:
 ### 2.2 Configure Deployment
 1. Set the following configuration:
    - Name: shopwithme-frontend
-   - Build Command: `cd client && npm install && npm run build`
+   - Build Command: `cd client && cp package.prod.json package.json && npm install && npm run build`
+     - This command:
+       - Changes to the client directory
+       - Copies the production package file
+       - Installs dependencies
+       - Builds the application
    - Publish Directory: `client/build`
+     - This is where the build command creates the static files
    - Environment Variables:
      ```
      REACT_APP_API_URL=https://your-backend-url.onrender.com
