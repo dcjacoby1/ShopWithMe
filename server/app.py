@@ -1,7 +1,8 @@
-from flask import request,  make_response, session
-from flask_restful import Resource
-from config import app, db, api
-from models import User, Product, ShoppingCart, CartItem, Order
+from flask import Flask, request, jsonify, session
+from flask_restful import Api
+from flask_cors import CORS
+from server.config import app, db, api
+from server.models import User, Product, ShoppingCart, CartItem, Order
 
 @app.route('/')
 def index():
