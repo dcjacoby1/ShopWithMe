@@ -1,9 +1,10 @@
 services:
-  - type: web
+  - type: static
     name: shopwithme-frontend
-    env: static
-    buildCommand: cd client && npm ci --only=production --package-lock=false && npm run build
+    buildCommand: cd client && npm ci --production && npm run build
     staticPublishPath: ./client/build
     envVars:
       - key: REACT_APP_API_URL
-        sync: false 
+        sync: false
+    plan: free
+    region: oregon 
