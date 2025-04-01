@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom"
-import API_BASE_URL from "../config";
+import API_BASE_URL from "./config";
 
 function App() {
   const [ loggedInUser, setLoggedInUser ] = useState(null)
