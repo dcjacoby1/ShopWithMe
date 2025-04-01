@@ -1,8 +1,9 @@
 services:
   - type: static
     name: shopwithme-frontend
-    buildCommand: cd client && npm ci --production && npm run build
-    staticPublishPath: ./client/build
+    rootDir: client
+    buildCommand: npm ci --production && npm run build
+    staticPublishPath: ./build
     envVars:
       - key: REACT_APP_API_URL
         sync: false
