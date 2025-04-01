@@ -1,6 +1,5 @@
-from flask import Flask, request, jsonify, session
-from flask_restful import Api
-from flask_cors import CORS
+from flask import request, make_response, session
+from flask_restful import Resource
 from server.config import app, db, api
 from server.models import User, Product, ShoppingCart, CartItem, Order
 
