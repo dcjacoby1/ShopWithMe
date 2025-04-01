@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom"
+import API_BASE_URL from "../config";
 
 function App() {
   const [ loggedInUser, setLoggedInUser ] = useState(null)
@@ -8,7 +9,7 @@ function App() {
   const [totalCost, setTotalCost] = useState(0)
 
   useEffect(() => {
-    fetch('/check_session')
+    fetch(`${API_BASE_URL}/check_session`)
       .then(resp => {
         if (resp.ok) {
           resp.json().then(data => setLoggedInUser(data))
@@ -17,7 +18,7 @@ function App() {
     }, [])
 
   useEffect(() => {
-    fetch('/cart_total')
+    fetch(`${API_BASE_URL}/cart_total`)
       .then(resp => {
         if (resp.ok) {
           resp.json().then(data => setCartTotal(data.total))
@@ -26,7 +27,7 @@ function App() {
     }, [])
 
     useEffect(() => {
-      fetch('/cart_total_price')
+      fetch(`${API_BASE_URL}/cart_total_price`)
         .then(resp => {
           if (resp.ok) {
             resp.json().then(data => setTotalCost(data.total))
