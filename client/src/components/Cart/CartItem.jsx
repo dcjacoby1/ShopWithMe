@@ -1,5 +1,6 @@
 import { useOutletContext } from "react-router-dom"
 import { useState } from "react"
+import API_BASE_URL from "../config"
 
 function CartItem({name, image_url, initialQuantity, price, product_id, setCartItems, cartItems}) {
 
@@ -10,7 +11,7 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
   
     //functions to change specific item quantity in cart
     function subtractQuantity(){
-        fetch('/subtract_cart_quantity', {
+        fetch(`${API_BASE_URL}/subtract_cart_quantity`, {
             method: 'POST',
             headers: {
                 "Content-Type": 'application/json'
@@ -36,8 +37,8 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
             }) 
     }
 
-    function addQuantity(){
-        fetch('/add_to_cart', {
+    function addQuantity() {
+        fetch(`${API_BASE_URL}/add_to_cart`, {
             method: 'POST',
             headers: {
                 "Content-Type": 'application/json'
@@ -57,57 +58,42 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
     }
 
     function deleteItem() {
-    fetch('/delete_cart_item', {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            product_id: product_id
-        })
-    }).then(res => {
-        if (res.ok) {
+        fetch(`${API_BASE_URL}/delete_cart_item`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                product_id: product_id
+            })
+        }).then(res => {
+            if (res.ok) {
                 setCartTotal(prevCartTotal => prevCartTotal - quantity)
                 setTotalCost(prevTotalCost => prevTotalCost - (quantity * price))
                 setCartItems(cartItems.filter(item => item.product.id !== product_id));
-                
-            
-        } else {
-            console.error("Error removing item:", res.status);
-        }
-    }).catch(error => {
-        console.error("Fetch error:", error);
-    });
-}
+            } else {
+                console.error("Error removing item:", res.status);
+            }
+        }).catch(error => {
+            console.error("Fetch error:", error);
+        });
+    }
 
-    return(
-        <div className="cart-tile">
+    return (
+        <li className="cart-item">
             <img src={image_url} alt={name} />
             <div className="cart-item-details">
-                <div>
-                    <p>Product Name</p>
-                    <h3>{name}</h3>
-                </div>
-                <div>
-                    <p>Unit Price</p>
-                    <h3>${price}</h3>
-                </div>
-                <div>
-                    <p>Total Price</p>
-                    <h3>${price * quantity}</h3>
-                </div>
-            </div>
-            <div className="cart-item-quantity">
-                <div>
-
+                <h4>{name}</h4>
+                <p>${price}</p>
+                <div className="quantity-controls">
                     <button onClick={subtractQuantity}>-</button>
-                    <p>{quantity}</p>
+                    <span>{quantity}</span>
                     <button onClick={addQuantity}>+</button>
                 </div>
-                <button onClick={deleteItem} style={{fontSize: "20px"}}>remove</button>
+                <button onClick={deleteItem}>Remove</button>
             </div>
-
-        </div>
+        </li>
     )
 }
+
 export default CartItem

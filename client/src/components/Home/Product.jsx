@@ -1,4 +1,5 @@
 import { useNavigate, useOutletContext } from 'react-router-dom'
+import API_BASE_URL from "../config"
 
 function Product({name, price, image_url, product_id}){
     const navigate = useNavigate()
@@ -9,7 +10,7 @@ function Product({name, price, image_url, product_id}){
     
     function handleCart(){ 
         if (loggedInUser) {
-            fetch('/add_to_cart', {
+            fetch(`${API_BASE_URL}/add_to_cart`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'
@@ -28,7 +29,6 @@ function Product({name, price, image_url, product_id}){
         } else {
             navigate('/auth')
         }
-        
     }
 
     return(

@@ -1,6 +1,7 @@
 import { useOutletContext, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from "react"
 import OrderList from "./Order/OrderList"
+import API_BASE_URL from "./config"
 
 function Orders(){
     const [orderList, setOrderList] = useState([])
@@ -9,7 +10,7 @@ function Orders(){
     const loggedInUser = context.loggedInUser
     
     useEffect(() => {
-        fetch("/orders")
+        fetch(`${API_BASE_URL}/orders`)
         .then(response => response.json())
         .then(orderList => {
             if (Array.isArray(orderList)){ 

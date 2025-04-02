@@ -1,11 +1,12 @@
 import { NavLink, useNavigate } from "react-router-dom"
+import API_BASE_URL from "./config"
 
 function Navbar({loggedInUser, setLoggedInUser, cartTotal, setCartTotal}){
     const navigate = useNavigate()
 
     function handleClick(){
         if (loggedInUser) {
-            fetch('/logout', {
+            fetch(`${API_BASE_URL}/logout`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -25,8 +26,6 @@ function Navbar({loggedInUser, setLoggedInUser, cartTotal, setCartTotal}){
             .catch((error) => {
                 console.log('Network error:', error);
             })
-            
-
         } else{
             navigate("/auth")
         } 

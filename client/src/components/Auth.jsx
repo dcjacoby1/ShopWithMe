@@ -5,6 +5,7 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 import { useNavigate } from "react-router-dom"
 import { useOutletContext } from 'react-router-dom'
+import API_BASE_URL from "./config"
 
 function Auth() {
     const [signup, setSignup] = useState(false)
@@ -19,7 +20,7 @@ function Auth() {
     }
 
     const fetchCartTotal = () => {
-        fetch('/cart_total')
+        fetch(`${API_BASE_URL}/cart_total`)
           .then(resp => {
             if (resp.ok) {
               resp.json().then(data => setCartTotal(data.total))
@@ -44,7 +45,7 @@ function Auth() {
     const handleSubmit = (values) => {
         const endpoint = signup ? '/signup' : '/login';
         const requestBody = signup ? values : { email: values.email, password: values.password };
-        fetch(endpoint, {
+        fetch(`${API_BASE_URL}${endpoint}`, {
             method: 'POST',
             headers: {
                 "Content-Type": 'application/json'
@@ -65,11 +66,9 @@ function Auth() {
                 });
             }
         })
-
         .catch((error) => {
             setError(error);
         });
-          
     };
 
     //conditionally sends information based on if signup or login

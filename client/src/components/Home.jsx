@@ -2,6 +2,7 @@ import Search from "./Home/Search"
 import ProductList from "./Home/ProductList"
 import CategoryFilter from "./Home/CategoryFilter"
 import { useState, useEffect } from "react"
+import API_BASE_URL from "./config"
 
 function Home(){
     const [productDisplay, setProductDisplay] = useState([])
@@ -16,7 +17,7 @@ function Home(){
     )
     //useEffect to fetch products
     useEffect(() => {
-        fetch("/products")
+        fetch(`${API_BASE_URL}/products`)
         .then(response => response.json())
         .then(products => setProductDisplay(products))
       },[])

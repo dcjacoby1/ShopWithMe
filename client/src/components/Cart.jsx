@@ -2,6 +2,7 @@ import CartDirectory from "./Cart/CartDirectory"
 import CartList from "./Cart/CartList"
 import { useState, useEffect } from "react"
 import { useOutletContext, useNavigate } from 'react-router-dom'
+import API_BASE_URL from "./config"
 
 function Cart(){
     const [cartItems, setCartItems] = useState([])
@@ -11,7 +12,7 @@ function Cart(){
 
     //fetch user cart items
     useEffect(() => {
-        fetch("/shopping_carts")
+        fetch(`${API_BASE_URL}/shopping_carts`)
         .then(response => response.json())
         .then(cartItems => {
             if (Array.isArray(cartItems)){ 

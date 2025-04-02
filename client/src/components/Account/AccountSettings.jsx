@@ -2,6 +2,7 @@ import EditProfile from './EditProfile'
 import { useState } from 'react'
 import { useOutletContext } from "react-router-dom"
 import { Container } from '@mui/material'
+import API_BASE_URL from "../config"
 
 function AccountSettings(){
     const [error, setError] = useState("")
@@ -19,7 +20,7 @@ function AccountSettings(){
             }
         }
         
-        fetch('/users', {
+        fetch(`${API_BASE_URL}/users`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -27,13 +28,11 @@ function AccountSettings(){
             body: JSON.stringify(valuesCopy)
         }).then(res => {
             if (res.ok){
-
-
-        res.json()
-        .then(data => {
-            setLoggedInUser(data)
-            setShowEditForm(false)
-            setError("")
+                res.json()
+                .then(data => {
+                    setLoggedInUser(data)
+                    setShowEditForm(false)
+                    setError("")
                 })
             }
             else{
@@ -47,12 +46,11 @@ function AccountSettings(){
     }
 
     function deleteProfile(){
-        fetch('/users', {
+        fetch(`${API_BASE_URL}/users`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json"
             }
-
         }).then(res => {
             if (res.ok) {
                 setLoggedInUser(null)
