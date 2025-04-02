@@ -70,7 +70,7 @@ class CartTotal(Resource):
     def get(self):
         user_id = session['user_id']
         if not user_id:
-            return {"error": "User not authenticated"}, 401
+            return {'total': 0}
         
         #checks to see if user has an unplaced cart
         cart = ShoppingCart.query.filter_by(user_id=user_id, placed=False).first()
@@ -98,7 +98,7 @@ class CartTotalPrice(Resource):
     def get(self):
         user_id = session['user_id']
         if not user_id:
-            return {"error": "User not authenticated"}, 401
+            return {'total': 0}
         
         cart = ShoppingCart.query.filter_by(user_id=user_id, placed=False).first()
         if not cart:
