@@ -6,6 +6,6 @@ services:
     staticPublishPath: client/build
     envVars:
       - key: REACT_APP_API_URL
-        sync: false
+        value: https://shopwithme-3o60.onrender.com
     plan: free
     region: oregon 
