@@ -374,17 +374,7 @@ class Login(Resource):
         if user.authenticate(params.get('password')):
             session['user_id'] = user.id
             print("Login successful - Session Data:", dict(session))  # Log session after setting
-            
-            response = make_response(user.to_dict(), 200)
-            response.set_cookie(
-                'session',
-                session.get('user_id'),
-                secure=True,
-                samesite='None',
-                domain='.onrender.com',
-                httponly=True
-            )
-            return response
+            return make_response(user.to_dict(), 200)
         
         else:
             return make_response({'error': 'invalid password' }, 401)
