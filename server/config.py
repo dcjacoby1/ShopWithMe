@@ -39,7 +39,7 @@ CORS(app,
      supports_credentials=True, 
      resources={r"/*": {
          "origins": [
-             "https://shopwithme-3o60.onrender.com",
+             "https://shopwithme-1.onrender.com",  # Frontend URL
              "http://localhost:3000"  # Keep localhost for development
          ]
      }})
