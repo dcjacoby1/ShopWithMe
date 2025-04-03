@@ -16,7 +16,7 @@ class Users(Resource):
         return make_response(users_list, 200)
     
     def delete(self):
-        user_id = session['user_id']
+        user_id = session.get('user_id')
         if not user_id:
             return {"error": "User not authenticated"}, 401
         
@@ -68,7 +68,7 @@ api.add_resource(Products, '/products')
 class CartTotal(Resource):
 
     def get(self):
-        user_id = session['user_id']
+        user_id = session.get('user_id')
         if not user_id:
             return {'total': 0}
         
@@ -96,7 +96,7 @@ api.add_resource(CartTotal, '/cart_total')
 class CartTotalPrice(Resource):
 
     def get(self):
-        user_id = session['user_id']
+        user_id = session.get('user_id')
         if not user_id:
             return {'total': 0}
         
@@ -122,8 +122,11 @@ api.add_resource(CartTotalPrice, '/cart_total_price')
 class AddToCart(Resource):
 
     def post(self):
+        user_id = session.get('user_id')
+        if not user_id:
+            return {"error": "User not authenticated"}, 401
+
         params = request.json
-        user_id = session['user_id']
         product_id = params['product_id']
 
         user = User.query.get(user_id)
@@ -160,8 +163,11 @@ api.add_resource(AddToCart, '/add_to_cart')
 class DeleteCartItem(Resource):
 
     def delete(self):
+        user_id = session.get('user_id')
+        if not user_id:
+            return {"error": "User not authenticated"}, 401
+
         params = request.json
-        user_id = session['user_id']
         product_id = params['product_id']
 
         user = User.query.get(user_id)
@@ -190,8 +196,11 @@ api.add_resource(DeleteCartItem, '/delete_cart_item')
 #subtracts one quantity of cart item
 class SubtractCartQuantity(Resource):
     def post(self):
+        user_id = session.get('user_id')
+        if not user_id:
+            return {"error": "User not authenticated"}, 401
+
         params = request.json
-        user_id = session['user_id']
         product_id = params['product_id']
 
         user = User.query.get(user_id)
@@ -263,11 +272,11 @@ api.add_resource(ShoppingCarts, '/shopping_carts')
 class CreateOrder(Resource):
 
     def post(self):
-        params = request.json
-        user_id = session['user_id']
-
+        user_id = session.get('user_id')
         if not user_id:
             return {"error": "User not authenticated"}, 401
+
+        params = request.json
         
         cart = ShoppingCart.query.filter_by(user_id=user_id, placed=False).first()
         if not cart:
@@ -296,18 +305,14 @@ api.add_resource(CreateOrder, '/create_order')
 class Orders(Resource):
 
     def get(self):
-        user_id = session['user_id']
+        user_id = session.get('user_id')
         if not user_id:
             return {"error": "User not authenticated"}, 401
-        
-        orders = Order.query.filter(Order.user_id == user_id).all()
-        if not orders:
-            return {"note": "No orders placed"}, 200
-        
-        sorted_orders = sorted(orders, key=lambda order: order.created_at, reverse=True)
-        orders_list = [order.to_dict() for order in sorted_orders]
-        return make_response(orders_list, 200)
 
+        orders = Order.query.filter_by(user_id=user_id).all()
+        order_list = [order.to_dict() for order in orders]
+        return make_response(order_list, 200)
+    
 api.add_resource(Orders, '/orders')
 
 #checks to see if user is logged in
