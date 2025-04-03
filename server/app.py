@@ -378,7 +378,7 @@ class Login(Resource):
             response.set_cookie(
                 'session',
                 session.get('session_id'),
-                domain='.onrender.com',
+                domain='onrender.com',
                 secure=True,
                 httponly=True,
                 samesite='None',

@@ -53,6 +53,6 @@ app.secret_key = os.environ.get('SECRET_KEY')
 # Configure session cookie settings
 app.config['SESSION_COOKIE_SECURE'] = True  # Only send cookie over HTTPS
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'  # Allow cross-site cookie sending
-app.config['SESSION_COOKIE_DOMAIN'] = '.onrender.com'  # Allow sharing across subdomains
+app.config['SESSION_COOKIE_DOMAIN'] = 'onrender.com'  # Allow sharing across subdomains
 app.config['SESSION_COOKIE_HTTPONLY'] = True  # Prevent JavaScript access to the cookie
 app.config['SESSION_COOKIE_PATH'] = '/'  # Ensure cookie is available for all paths
