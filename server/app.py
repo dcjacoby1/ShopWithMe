@@ -122,11 +122,18 @@ api.add_resource(CartTotalPrice, '/cart_total_price')
 class AddToCart(Resource):
 
     def post(self):
+        print("Request Headers:", dict(request.headers))  # Log all request headers
+        print("Cookies:", request.cookies)  # Log cookies from request
+        print("Session Data:", dict(session))  # Log session data
         user_id = session.get('user_id')
+        print("User ID from session:", user_id)
+        
         if not user_id:
+            print("No user_id in session, returning 401")  # Log when no user_id
             return {"error": "User not authenticated"}, 401
 
         params = request.json
+        print("Request params:", params)
         product_id = params['product_id']
 
         user = User.query.get(user_id)
@@ -358,6 +365,7 @@ api.add_resource(SignUp, '/signup')
 #user login
 class Login(Resource):
     def post(self):
+        print("Login Request Headers:", dict(request.headers))  # Log request headers
         params = request.json
         user = User.query.filter_by(email=params.get('email')).first()
         if not user:
@@ -365,6 +373,7 @@ class Login(Resource):
 
         if user.authenticate(params.get('password')):
             session['user_id'] = user.id
+            print("Login successful - Session Data:", dict(session))  # Log session after setting
             return make_response(user.to_dict(), 200)
         
         else:
