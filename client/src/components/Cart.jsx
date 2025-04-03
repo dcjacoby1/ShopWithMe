@@ -12,7 +12,9 @@ function Cart(){
 
     //fetch user cart items
     useEffect(() => {
-        fetch(`${API_BASE_URL}/shopping_carts`)
+        fetch(`${API_BASE_URL}/shopping_carts`, {
+            credentials: 'include'
+        })
         .then(response => response.json())
         .then(cartItems => {
             if (Array.isArray(cartItems)){ 

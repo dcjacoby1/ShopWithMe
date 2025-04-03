@@ -10,7 +10,9 @@ function Orders(){
     const loggedInUser = context.loggedInUser
     
     useEffect(() => {
-        fetch(`${API_BASE_URL}/orders`)
+        fetch(`${API_BASE_URL}/orders`, {
+            credentials: 'include'
+        })
         .then(response => response.json())
         .then(orderList => {
             if (Array.isArray(orderList)){ 
