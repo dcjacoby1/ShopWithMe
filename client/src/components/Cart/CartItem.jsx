@@ -16,6 +16,7 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
             headers: {
                 "Content-Type": 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify({
                 product_id: product_id
             })
@@ -43,6 +44,7 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
             headers: {
                 "Content-Type": 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify({
                 product_id: product_id
             })
@@ -63,6 +65,7 @@ function CartItem({name, image_url, initialQuantity, price, product_id, setCartI
             headers: {
                 "Content-Type": "application/json"
             },
+            credentials: 'include',
             body: JSON.stringify({
                 product_id: product_id
             })

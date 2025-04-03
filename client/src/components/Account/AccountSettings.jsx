@@ -25,6 +25,7 @@ function AccountSettings(){
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify(valuesCopy)
         }).then(res => {
             if (res.ok){
@@ -50,7 +51,8 @@ function AccountSettings(){
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            credentials: 'include'
         }).then(res => {
             if (res.ok) {
                 setLoggedInUser(null)

@@ -35,7 +35,14 @@ db.init_app(app)
 api = Api(app)
 
 # Instantiate CORS
-CORS(app)
+CORS(app, 
+     supports_credentials=True, 
+     resources={r"/*": {
+         "origins": [
+             "https://shopwithme-3o60.onrender.com",
+             "http://localhost:3000"  # Keep localhost for development
+         ]
+     }})
 
 # Encryption
 bcrypt = Bcrypt(app)

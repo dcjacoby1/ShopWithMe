@@ -20,7 +20,9 @@ function Auth() {
     }
 
     const fetchCartTotal = () => {
-        fetch(`${API_BASE_URL}/cart_total`)
+        fetch(`${API_BASE_URL}/cart_total`, {
+            credentials: 'include'
+        })
           .then(resp => {
             if (resp.ok) {
               resp.json().then(data => setCartTotal(data.total))
@@ -48,8 +50,9 @@ function Auth() {
         fetch(`${API_BASE_URL}${endpoint}`, {
             method: 'POST',
             headers: {
-                "Content-Type": 'application/json'
+                'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify(requestBody)
         }).then((resp) => {
             if (resp.ok) {

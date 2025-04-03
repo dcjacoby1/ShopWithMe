@@ -9,7 +9,9 @@ function App() {
   const [totalCost, setTotalCost] = useState(0)
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/check_session`)
+    fetch(`${API_BASE_URL}/check_session`, {
+        credentials: 'include'
+    })
       .then(resp => {
         if (resp.ok) {
           resp.json().then(data => setLoggedInUser(data))
@@ -18,7 +20,9 @@ function App() {
     }, [])
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/cart_total`)
+    fetch(`${API_BASE_URL}/cart_total`, {
+        credentials: 'include'
+    })
       .then(resp => {
         if (resp.ok) {
           resp.json().then(data => setCartTotal(data.total))
@@ -27,7 +31,9 @@ function App() {
     }, [])
 
     useEffect(() => {
-      fetch(`${API_BASE_URL}/cart_total_price`)
+      fetch(`${API_BASE_URL}/cart_total_price`, {
+        credentials: 'include'
+    })
         .then(resp => {
           if (resp.ok) {
             resp.json().then(data => setTotalCost(data.total))

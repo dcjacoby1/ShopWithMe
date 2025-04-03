@@ -15,7 +15,8 @@ function CartDirectory({setCartItems}){
             method: 'GET',
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            credentials: 'include'
         }).then(res => {
             if (res.ok) {
                 res.json().then(cartItems => {
@@ -24,7 +25,12 @@ function CartDirectory({setCartItems}){
                             method: 'POST',
                             headers: {
                                 "Content-Type": "application/json"
-                            }
+                            },
+                            credentials: 'include',
+                            body: JSON.stringify({
+                                total_cost: totalCost,
+                                quantity: cartTotal
+                            })
                         }).then(res => {
                             if (res.ok) {
                                 setCartItems([])

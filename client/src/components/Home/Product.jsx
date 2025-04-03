@@ -15,6 +15,7 @@ function Product({name, price, image_url, product_id}){
                 headers: {
                     "Content-Type": 'application/json'
                 },
+                credentials: 'include',
                 body: JSON.stringify({
                     product_id: product_id
                 })
