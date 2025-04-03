@@ -47,6 +47,9 @@ function Auth() {
     const handleSubmit = (values) => {
         const endpoint = signup ? '/signup' : '/login';
         const requestBody = signup ? values : { email: values.email, password: values.password };
+        //can take out console.log after testing
+        console.log('Attempting login with:', { endpoint, requestBody });
+        
         fetch(`${API_BASE_URL}${endpoint}`, {
             method: 'POST',
             headers: {
@@ -55,8 +58,14 @@ function Auth() {
             credentials: 'include',
             body: JSON.stringify(requestBody)
         }).then((resp) => {
+            //can take out console.log after testing
+            console.log('Login Response Status:', resp.status);
+            console.log('Login Response Headers:', Object.fromEntries(resp.headers.entries()));
+            
             if (resp.ok) {
                 resp.json().then((user) => {
+                    //can take out console.log after testing
+                    console.log('Login successful - User data:', user);
                     setLoggedInUser(user)
                     setSignup(true)
                     fetchCartTotal()
@@ -64,12 +73,13 @@ function Auth() {
                 });
             } else {
                 resp.json().then((error) => {
-                    console.log('Error:', error);
+                    console.log('Login Error:', error);
                     setError(error || 'An error occurred');
                 });
             }
         })
         .catch((error) => {
+            console.log('Login Fetch Error:', error);
             setError(error);
         });
     };
